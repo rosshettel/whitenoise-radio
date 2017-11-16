@@ -24,4 +24,12 @@ void loop() {
     digitalWrite(3, LOW);
     delay(1000);
   }
+
+  if (Audio.getStatus() == AudioStop) {
+    Audio.playFile("\\whitenoise.mp3");
+    for (int i=0; i<20; i++) {
+      digitalWrite(3, HIGH);
+      delay(250);
+    }
+  }
 }
