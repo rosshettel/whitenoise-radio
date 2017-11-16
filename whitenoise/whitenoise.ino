@@ -3,23 +3,25 @@
 #include "Audio.h"
 void setup() {
   Serial.begin(115200);
-  Serial.print("\r\narduino setup ...\r\n");
-  if(!SD.begin())
-  {
-    Serial.println("sd init err\r\n");
+  Serial.print("whitenoise radio");
+  pinMode(3, OUTPUT);
+  if(!SD.begin()) {
+    Serial.println("SD setup error");
     while(1);
   }
   Audio.begin(AUDIO_SD);
-  if(Audio)
-  {
-    Audio.playFile("\\BROWNNOISE.WAV");
+  Audio.setVolume(27);
+  if(Audio) {
+    Audio.playFile("\\whitenoise.mp3");
+    digitalWrite(3, HIGH);
   }
 }
 void loop() {
   Serial.println("loop");
-  delay(2000);
-  if(Audio.getStatus() == AudioStop)
-  {
-    Audio.playFile("\\BROWNNOISE.WAV");
+  if (Audio.getStatus() == AudioPlay) {
+    digitalWrite(3, HIGH);
+    delay(1000);
+    digitalWrite(3, LOW);
+    delay(1000);
   }
 }
